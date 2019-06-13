@@ -1,0 +1,326 @@
+Summarize;
+Static member in inheritance
+Is static method and fields are inherited?
+YES! They are inherited
+
+Public Person{
+Public static String race = "Human"
+}
+Public Student extends Person{
+Main{
+Person.race
+Race
+Student.race
+}
+}
+
+STATIC METHODS CAN NOT BE OVERRIDEN it can only be hidden by declaring sam method in sub class if you put @Override on top it will not compile
+
+Method overriding;
+You can define same method with same signature same return in sub class with different content in the method body to override the functionality inherited from super class
+
+Rule:
+It should have same method signature
+Same return type --- at this moment
+It can not have less visibility
+
+WE CAN NOT OVERRIDE A PRIVATE METHOD
+WE CAN NOT  OVERRIDE SOMETHING WE DON'T INHERIT
+Overriding VS overloading
+Super----> super classes instance fields and methods
+
+WHEN  DO WE USE IT MOSTLY:
+In overridden method in sub class
+If we want to reuse the functionality of super class version
+Of the method and build on top of it, we can use
+Super.methodname to access super class version
+
+METHOD OVERRIDIN IS A CONCEPT EXCLUSIVELY FOR 
+----->>>>> INSTANCE METHODS IN INHERITANCE RELATINSHIP
+final -it is a keyword that makes variable immutable (not possible to change onece set) method not eligible for overriding, and class and not eligible for sub classing.Thus, final class cannot be a parent class.. 
+one more thing about final variable.It should be spelled all upper case.
+for example: MAX_value, min_value, 
+
+
+Inheritance : 
+
+	why do we need it : 
+		a class can extends another class 
+		to inherit fields and methods 
+
+	what's inherited 
+		all visible fields and methods
+		constructor is not inherited 
+
+	We can just use all inherited members 
+	just like it's our own 
+
+	and we have option to add new fields 
+	or methods that does not exists in super class 
+
+	We can also change what super class provided 
+		
+		fields 
+			if we declare a field that already exists in super class 
+				it will hide super class's field 
+
+			IT JUST NEED TO HAVE SAME NAME 
+			IT CAN HAVE EVERYTHING ELSE DIFFERENT 
+
+			How do we access a hidden field in sub class
+
+			parent 
+				int capacity 
+
+			Child 
+				long capacity 
+
+
+			super.capacity -->> parent version 
+			this.capacity --->> current class version
+
+
+
+		methods 
+
+			static method 
+
+				a sub class define same method as super class, it hides super class's static method 
+
+			public class Person{
+
+				public static void showRace(){
+					print ("Human")
+				} 
+
+			}
+
+			this. super. MUST NOT SHOW UP IN STATIC METHOD 
+			instance members  MUST NOT SHOW UP IN STATIC METHOD 
+
+			public class Spartan extends Person{
+
+				@Override ---->> ERROR !!! 
+				public static void showRace(){
+					Person.showRace(); 
+					print ("Spartan")
+				} 
+
+			}
+
+
+		instnace method 
+			--- we can define sub class version of the method 
+				 to provide new implementation 
+				---->> Overriding 
+					it's exclusively for instance method 
+
+			public class Person{
+
+				public void sleep(){
+					print ("Human")
+				} 
+
+			}
+			public class Spartan extends Person{
+
+				@Override -->>>ENFORCE OVERRIDING RULE 
+				public void sleep(){	
+					super.sleep(); 
+					super.sleep(); 
+					print ("Spartan dont sleep")
+					super.sleep(); 
+					
+				} 
+
+			}
+Difference between method Overloading and method Overriding?
+• First and most important difference between overloading and overriding is that,
+o in case of overloading , method name must be the same, but the parameters must be different;
+o in case of overriding , method name and parameters must be same
+• Second major difference between method overloading and overriding is that;
+o We can overload method in the same class but method overriding occurs in two classes that have inheritance
+relationship.
+• We cannot override static, final and private method in Java, but we can overload static, final and private method in Java.
+• In method overloading , return type can be same or different. In method overriding , return type must be same or covariant
+
+
+
+
+
+
+  
+    // can not reassign a value for final variable 
+    
+    // a primitive type store value directly so final variable 
+    // x can not have new value here
+    
+    final int x = 10 ; 
+      //x = 12 ; 
+    
+    // a reference variable store address of the object 
+    // once it's pointed to the object , it can not point to 
+    // different object 
+    final Building b1 = new Building(100); 
+    b1.num = 200 ; 
+    
+    
+    // b1 = new Building(300); 
+    Building b2 = b1 ; 
+    
+    
+    System.out.println(b1.num);
+
+  }
+
+}
+
+
+
+class Building {
+  
+  int num ; 
+  public Building(int num) {
+    this.num = num ; 
+  }
+  
+  
+  
+  
+  
+  
+  
+  public class Computer extends Electronic {
+
+  //@Override  this is a new method ,it's not overriding 
+//  private void turnOn() {
+//    System.out.println("computer");
+//  }
+  
+  @Override
+  // overriding methdo in sub class can be optionally final 
+    // to block sub class of computer overrrding turnOff
+
+  public final void turnOff() {
+    System.out.println("COmputer off");
+  }
+
+}
+
+
+
+class Electronic{
+  
+  
+//  private void turnOn() {
+//    System.out.println("electronic");
+//  }
+  
+  public void turnOff() {
+    System.out.println("electronic off");
+  }
+  
+  
+  
+  
+}
+
+public class FinalInstanceFields {
+
+  // FINAL FIELDS MUST BE INITIALIZED
+  // BEFORE THE OBJECT CREATION COMPLETED  
+  
+  final int NUM = 100;  
+  final int NUM1 = getNumber(); 
+  final int NUM2; 
+  final int NUM3; 
+  
+  {
+    NUM2 = 200; 
+  }
+  
+  public FinalInstanceFields() {
+    NUM3 = 300; 
+  }
+  
+
+  private int getNumber() {
+    // TODO Auto-generated method stub
+    return 150;
+  }
+
+
+  public static void main(String[] args) {
+    
+    // local final variable does not have to get initial value
+    //  IF NOT USED 
+    
+    // local final variable can not be reassigned once it get initial value 
+    final int x ; 
+    x = 20 ; 
+    //x = 30 ; 
+    System.out.println(x);
+    
+    
+    FinalInstanceFields f1 = new FinalInstanceFields(); 
+    System.out.println( f1.NUM);
+    System.out.println( f1.NUM2);
+    System.out.println( f1.NUM3);
+    
+    // f1.NUM = 200;  can not reassign value for final variable 
+    
+    
+    System.out.println("THE END");
+    
+
+  }
+public class FinalStaticFileds {
+
+  // public static final filed --->> CONSTANT 
+  
+  // FINAL STATIC FILED VALUE MUST BE INITIALIZED BEFORE CLASS FINISH LOADING 
+  public static final String RACE = "HUMAN";    
+  static final int MAX_NUM     = getStaticNum(); 
+  
+  private static final int MAX_SPEED ; 
+  // ALL CAP IS HIGLY RECOMMENDED
+  //static final String lowercase = "lower"; 
+  
+  static {
+    MAX_SPEED = 120; 
+  }
+  
+  
+  public static int getStaticNum() {
+    return 200 ; 
+  }
+  
+  
+  
+  
+  public static void main(String[] args) {
+    // TODO Auto-generated method stub
+
+    
+    System.out.println( RACE  );
+    System.out.println(  MAX_SPEED  );
+    
+    //RACE = "Humanoid"; 
+    
+    System.out.println(  Integer.MAX_VALUE   );
+    System.out.println(  Math.PI    );
+    
+  }
+
+}
+
+}
+
+
+  
+  
+type.
+
+
+
+
